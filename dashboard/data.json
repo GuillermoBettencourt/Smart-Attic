@@ -1,0 +1,152 @@
+[
+  {
+    "date": "23 Mar 20:01",
+    "metric": "Temperature",
+    "value": 20
+  },
+  {
+    "date": "23 Mar 20:01",
+    "metric": "Humidity",
+    "value": 30
+  },
+  {
+    "date": "23 Mar 20:02",
+    "metric": "Temperature",
+    "value": 24
+  },
+  {
+    "date": "23 Mar 20:02",
+    "metric": "Humidity",
+    "value": 40
+  },
+  {
+    "date": "23 Mar 20:03",
+    "metric": "Temperature",
+    "value": 28
+  },
+  {
+    "date": "23 Mar 20:03",
+    "metric": "Humidity",
+    "value": 20
+  },
+  {
+    "date": "23 Mar 20:04",
+    "metric": "Temperature",
+    "value": 23
+  },
+  {
+    "date": "23 Mar 20:04",
+    "metric": "Humidity",
+    "value": 10
+  },
+  {
+    "date": "23 Mar 20:05",
+    "metric": "Temperature",
+    "value": 19
+  },
+  {
+    "date": "23 Mar 20:05",
+    "metric": "Humidity",
+    "value": 60
+  },
+  {
+    "date": "23 Mar 20:06",
+    "metric": "Temperature",
+    "value": 15
+  },
+  {
+    "date": "23 Mar 20:06",
+    "metric": "Humidity",
+    "value": 70
+  },
+  {
+    "date": "23 Mar 20:07",
+    "metric": "Temperature",
+    "value": 18
+  },
+  {
+    "date": "23 Mar 20:07",
+    "metric": "Humidity",
+    "value": 80
+  },
+  {
+    "date": "23 Mar 20:08",
+    "metric": "Temperature",
+    "value": 10
+  },
+  {
+    "date": "23 Mar 20:08",
+    "metric": "Humidity",
+    "value": 30
+  },
+  {
+    "date": "23 Mar 20:09",
+    "metric": "Temperature",
+    "value": 5
+  },
+  {
+    "date": "23 Mar 20:09",
+    "metric": "Humidity",
+    "value": 10
+  },
+  {
+    "date": "23 Mar 20:10",
+    "metric": "Temperature",
+    "value": 30
+  },
+  {
+    "date": "23 Mar 20:11",
+    "metric": "Humidity",
+    "value": 100
+  },
+  {
+    "date": "23 Mar 20:12",
+    "metric": "Temperature",
+    "value": 24
+  },
+  {
+    "date": "23 Mar 20:12",
+    "metric": "Humidity",
+    "value": 40
+  },
+  {
+    "date": "23 Mar 20:13",
+    "metric": "Temperature",
+    "value": 28
+  },
+  {
+    "date": "23 Mar 20:13",
+    "metric": "Humidity",
+    "value": 20
+  },
+  {
+    "date": "23 Mar 20:14",
+    "metric": "Temperature",
+    "value": 23
+  },
+  {
+    "date": "23 Mar 20:14",
+    "metric": "Humidity",
+    "value": 10
+  },
+  {
+    "date": "23 Mar 20:15",
+    "metric": "Temperature",
+    "value": 19
+  },
+  {
+    "date": "23 Mar 20:15",
+    "metric": "Humidity",
+    "value": 60
+  },
+  {
+    "date": "23 Mar 20:16",
+    "metric": "Temperature",
+    "value": 15
+  },
+  {
+    "date": "23 Mar 20:16",
+    "metric": "Humidity",
+    "value": 70
+  }
+]
