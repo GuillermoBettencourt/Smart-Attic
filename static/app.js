@@ -18,10 +18,13 @@ fetch('/get_images')
       img.style.display = 'block'; // center the image
       img.style.margin = '0 auto'; // center the image
       img.style.width = '50%'; // set a specific size for the image
-      const text = document.createTextNode(image.name);
+      
+      imageDate = image.name.replace('.jpg', '');
+      const text = document.createTextNode(imageDate);
       const textElement = document.createElement('p');
       textElement.style.textAlign = 'center'; // center the text
       textElement.appendChild(text);
+
       listItem.appendChild(textElement); // add text above the image
       listItem.appendChild(img);
       imageList.appendChild(listItem);
