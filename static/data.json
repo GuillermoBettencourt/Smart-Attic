@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2023-03-26 17:19:14",
+    "metric": "Temperature",
+    "value": 10.5
+  },
+  {
+    "date": "2023-03-26 17:19:14",
+    "metric": "Humidity",
+    "value": 40.2
+  },
+  {
+    "date": "2023-03-26 17:19:32",
+    "metric": "Temperature",
+    "value": 20.4
+  },
+  {
+    "date": "2023-03-26 17:19:32",
+    "metric": "Humidity",
+    "value": 30.2
+  },
+  {
+    "date": "2023-03-26 17:19:41",
+    "metric": "Temperature",
+    "value": 23.5
+  },
+  {
+    "date": "2023-03-26 17:19:41",
+    "metric": "Humidity",
+    "value": 70.2
+  },
+  {
+    "date": "2023-03-26 17:19:55",
+    "metric": "Temperature",
+    "value": 43.5
+  },
+  {
+    "date": "2023-03-26 17:19:55",
+    "metric": "Humidity",
+    "value": 30.2
+  }
+]

@@ -13,6 +13,7 @@ MAX_HUMIDITY = 60
 MIN_HUMIDITY = 30 
 
 imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
+#imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
 temperature = ""
 humidity = ""
 image = None

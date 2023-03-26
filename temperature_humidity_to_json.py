@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 # set the filename and path of the JSON file
-filename = 'dashboard/data.json'
+filename = 'static/data.json'
 filepath = f'/mnt/c/Users/guill/OneDrive/Escritorio/E.I/MEIC/S4/AI/Project/Smart-Attic/{filename}'
 
 # function to add new metric to the JSON file
