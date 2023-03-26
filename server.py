@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from email_sender import send_email_temperature_alert, send_email_humidity_alert, send_email_intruder_alert
+from temperature_humidity_to_json import add_metric
 
 app = Flask(__name__)
 
@@ -31,7 +32,8 @@ def submit_th_data():
     data = request.get_json()
     temperature = data['temperature']
     humidity = data['humidity']
-    
+    add_metric(temperature, humidity)
+
     if(temperature > MAX_TEMPERATURE or temperature < MIN_TEMPERATURE):
         send_email_temperature_alert(temperature)
 
