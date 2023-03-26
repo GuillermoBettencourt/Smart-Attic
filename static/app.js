@@ -30,3 +30,28 @@ fetch('/get_images')
       imageList.appendChild(listItem);
     });
   });
+
+  // Get the security status
+  const securityToggle = document.getElementById("security-toggle");
+  securityToggle.innerHTML = "Enabled";
+  securityToggle.style.backgroundColor = "#27ae60";
+  securityToggle.addEventListener("click", function() {
+    fetch('/enable_security')
+      .then(response => response.json())
+      .then(data => {
+        // Find the security toggle button
+
+        // Toggle the security status
+        let securityIsEnabled = Boolean(data.isEnabled);
+        
+        // Update the security toggle button text and color
+        if (securityIsEnabled) {
+          securityToggle.innerHTML = "Enabled";
+          securityToggle.style.backgroundColor = "#27ae60";
+        } else {
+          securityToggle.innerHTML = "Disabled";
+          securityToggle.style.backgroundColor = "#e74c3c";
+        }
+        
+      });
+  });

@@ -16,7 +16,7 @@ imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
 temperature = ""
 humidity = ""
 image = None
-notification_off = True
+security_is_enabled = True
 
 @app.route('/')
 def home():
@@ -51,17 +51,19 @@ def submit_th_data():
     humidity = data['humidity']
     add_metric(temperature, humidity)
 
-    if(temperature > MAX_TEMPERATURE or temperature < MIN_TEMPERATURE):
-        send_email_temperature_alert(temperature)
-
-    if(humidity > MAX_HUMIDITY or humidity < MIN_HUMIDITY):
-        send_email_temperature_alert(humidity)
+    if(security_is_enabled):
+        if(temperature > MAX_TEMPERATURE or temperature < MIN_TEMPERATURE):
+            send_email_temperature_alert(temperature)
+        if(humidity > MAX_HUMIDITY or humidity < MIN_HUMIDITY):
+            send_email_humidity_alert(humidity)
 
     print(f'Temperature: {temperature} | Humidity: {humidity}')
     return jsonify({'message': 'Temperature and Humidity data received successfully'})
 
 @app.route('/intruder_detected', methods=['POST'])
 def intruder_detected():
+    if(not security_is_enabled):
+        return jsonify({'message': 'Security is disabled'})
     global image
     image = request.files['image']
     imagePath = imageDirectory + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '.jpg'
@@ -76,13 +78,18 @@ def submit_error():
     print(error)
     return jsonify({'message': 'Error received successfully'})
 
-@app.route('/switch_notification', methods=['POST'])
-def switch_notification():
-    global notification_off
-    notification_off = not notification_off
-    message = "Notifications are now off" if notification_off else "Notifications are now on" 
+@app.route('/enable_security')
+def enable_security():
+    global security_is_enabled
+    security_is_enabled = not security_is_enabled
+    message = "Notifications are now off" if security_is_enabled else "Notifications are now on" 
     print(message)
-    return jsonify({'message': message})
+    return jsonify({'isEnabled': security_is_enabled})
+
+@app.route('/get_security_status')
+def get_security_status():
+    global security_is_enabled
+    return jsonify({'isEnabled': security_is_enabled})
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -39,4 +39,4 @@ while True:
         th_sensor.exit()
         raise error
     
-    time.sleep(2.0)
+    time.sleep(10.0)
