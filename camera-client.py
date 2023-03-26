@@ -6,14 +6,20 @@ import cv2
 import time
 
 
-IP_ADDRESS = "192.168.139.46"
-PORT = "8080"
+IP_ADDRESS_CAMERA = "192.168.139.46"
+PORT_CAMERA = "8080"
 
-address = 'http://localhost:5000/intruder_detected'
-security_status_address = 'http://localhost:5000/get_security_status'
-camera_url = f"http://{IP_ADDRESS}:{PORT}/video"
-activate_flash_url = f"http://{IP_ADDRESS}:{PORT}/enabletorch"
-deactivate_flash_url = f"http://{IP_ADDRESS}:{PORT}/disabletorch"
+IP_ADDRESS_SERVER = "192.168.139.248"
+PORT_SERVER = "5000"
+
+
+intruder_detected_address = f'http://{IP_ADDRESS_SERVER}:{PORT_SERVER}/intruder_detected'
+security_status_address = f'http://{IP_ADDRESS_SERVER}:{PORT_SERVER}/get_security_status'
+
+camera_url = f"http://{IP_ADDRESS_CAMERA}:{PORT_CAMERA}/video"
+activate_flash_url = f"http://{IP_ADDRESS_CAMERA}:{PORT_CAMERA}/enabletorch"
+deactivate_flash_url = f"http://{IP_ADDRESS_CAMERA}:{PORT_CAMERA}/disabletorch"
+
 
 pir = MotionSensor(12)
 i = 0
@@ -22,7 +28,7 @@ while True:
 
     pir.wait_for_motion()
     print("Motion detected.")
-    security_status = bool(requests.get(security_status_address).json()['security_status'])
+    security_status = bool(requests.get(security_status_address).json()['isEnabled'])
     if security_status == True:
         filename = "/home/pi/Desktop/code/motion_captured" + str(i) + ".jpg"
 
@@ -40,7 +46,7 @@ while True:
         cv2.imwrite(filename, frame)
 
         with open(filename, 'rb') as photo:
-            response = requests.post(address, files={'image': photo})
+            response = requests.post(intruder_detected_address, files={'image': photo})
             print(response.json())
             
         i = i + 1
