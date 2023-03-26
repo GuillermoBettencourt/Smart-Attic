@@ -1,6 +1,10 @@
 const margin = { top: 20, right: 30, bottom: 40, left: 40 };
 const width = 900 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
+const temperature = "Temperature", humidity = "Humidity";
+const tempMin = 10, tempMax = 30;
+const humMin = 30, humMax = 60;
+const minutes = 3000000;
 
 
 function init() {
@@ -8,10 +12,8 @@ function init() {
 }
 
 function createLineGraph(id) {
-  const parseDate = d3.timeParse("%d %b %H:%M");
-  const formatDate = d3.timeFormat("%H:%M");
-
-  // console.log(parseDate("12 Jun 22:39"));
+  const parseDate = d3.timeParse("%d-%m-%Y %H:%M:%S");
+  const formatDate = d3.timeFormat("%H:%M:%S");
 
   const svg = d3
     .select(id)
@@ -21,31 +23,74 @@ function createLineGraph(id) {
     .append("g")
       .attr("id", "gLineGraph")
       .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  
+  const legend = svg
+  .append('g')
+    .attr('class', 'legend')
+    .attr('transform', `translate(${width - 75}, ${0})`);
+
+  const labels = [
+      {color: '#7ab8eb', label: humidity},
+      {color: '#cf6c30', label: temperature}
+  ];
+  
+  legend.selectAll('rect')
+    .data(labels)
+    .enter()
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', function(d, i) { return i * 20; })
+    .attr('width', 10)
+    .attr('height', 10)
+    .style('fill', function(d) { return d.color; })
+    .attr("stroke", "#999")
+    .attr("stroke-width", 1);
+  
+  legend.selectAll('text')
+    .data(labels)
+    .enter()
+    .append('text')
+    .attr('x', 15)
+    .attr('y', function(d, i) { return i * 20 + 9; })
+    .text(function(d) { return d.label; })
+    .attr("font-size", "12px")
+    .attr("font-family", "sans-serif");
+  
 
   d3.json("data.json").then(function (data) {
-    // group the data: I want to draw one line per group
-    const sumstat = d3.group(data, d => d.metric); // nest function allows to group the calculation per level of a factor
+    let lastXMinutes = new Date()
+    lastXMinutes.setMinutes(lastXMinutes.getMinutes() - minutes)
 
-    // Add X axis --> it is a date format
+    // only use data from last X minutes
+    data = data.filter(function (elem) {
+      return lastXMinutes <= parseDate(elem.date);
+    });
+
+    // group the data
+    const sumstat = d3.group(data, d => d.metric);
+
+    // Add X axis
     const x = d3.scaleTime()
       .domain(d3.extent(data, function(d) { return parseDate(d.date); }))
       .range([ 0, width ]);
     svg.append("g")
+      .attr("id", "gXAxis")
       .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(x).tickFormat(formatDate));
-
+      .call(d3.axisBottom(x).ticks(5).tickFormat(formatDate));
+    
     // Add Y axis
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data, function(d) { return +d.value; })])
+      .domain([0, 100])
       .range([ height, 0 ]);
     svg.append("g")
+      .attr("id", "gYAxis")
       .call(d3.axisLeft(y));
 
-    // color palette
+    // Color palette
     const color = d3.scaleOrdinal()
-      .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
+      .range(['#cf6c30','#7ab8eb','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
 
-    // Draw the line
+    // Draw the lines
     svg.selectAll(".line")
         .data(sumstat)
         .join("path")
@@ -67,23 +112,40 @@ function createLineGraph(id) {
     .attr("cx", (d) => x(parseDate(d.date)))
     .attr("cy", (d) => y(d.value))
     .attr("r", 4)
-    .style("fill", "steelblue")
+    .style("fill", (d) => circleColor(d))
     .on("mouseover", (event, d) => handleMouseOver(d))
     .on("mouseleave", (event, d) => handleMouseLeave())
     .append("title")
     .text((d) => {
       let symbol;
       switch (d.metric) {
-        case "Temperature":
+        case temperature:
           symbol = "°C"
           break
-        case "Humidity":
+        case humidity:
           symbol= "%"
           break
       }
       return `Date: ${d.date}\n${d.metric}: ${d.value} ${symbol}`;
     });
   });
+}
+
+function circleColor(d) {
+  let metricMin, metricMax;
+
+  switch (d.metric) {
+    case temperature:
+      metricMin = tempMin;
+      metricMax = tempMax;
+      break
+    case humidity:
+      metricMin = humMin;
+      metricMax = humMax;
+      break
+  }
+  
+  return d.value < metricMin || d.value > metricMax ? "red" : "steelblue";
 }
 
 function handleMouseOver(item) {
@@ -95,5 +157,5 @@ function handleMouseOver(item) {
 }
 
 function handleMouseLeave() {
-  d3.selectAll(".itemValue").style("fill", "steelblue").attr("r", 4);
+  d3.selectAll(".itemValue").attr("r", 4);
 }
