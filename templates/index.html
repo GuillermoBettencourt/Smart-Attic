@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>Temperature and Humidity</title>
-    <link rel="stylesheet" href="style.css">
-    <title>Monitor Tool</title>
-</head>
-<body>
-    <header>
-        <h1>Temperature and Humidity</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Temperature</h2>
-            <p>{{temperature}}</p>
-        </section>
-        <section>
-            <h2>Humidity</h2>
-            <p>{{humidity}}</p>
-        </section>
-    </main>
-</body>
+    <title>Smart Attic Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Attic Dashboard</h1>
+      <div id="current-values">
+        <h2>Current Values</h2>
+        <p>Temperature: <span id="temperature"></span> &deg;C</p>
+        <p>Humidity: <span id="humidity"></span> %</p>
+      </div>
+      <div id="image-history">
+        <h2>Intruder History</h2>
+        <ul id="image-list">
+          <!-- Images will be added here dynamically -->
+        </ul>
+      </div>
+    </div>
+    <script src="../static/app.js"></script>
+  </body>
 </html>
