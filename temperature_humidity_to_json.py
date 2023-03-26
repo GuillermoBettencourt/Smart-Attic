@@ -16,13 +16,13 @@ def add_metric(temperature, humidity):
 
     # create a new metric object with the provided data
     new_temperature = {
-        'date': datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'metric': 'Temperature',
         'value': temperature
     }
 
     new_humidity = {
-        'date': datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'metric': 'Humidity',
         'value': humidity
     }

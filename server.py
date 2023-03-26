@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 from email_sender import send_email_temperature_alert, send_email_humidity_alert, send_email_intruder_alert
 from temperature_humidity_to_json import add_metric
+from datetime import datetime
 
+import os
+import base64
 app = Flask(__name__)
 
 MAX_TEMPERATURE = 30
@@ -19,11 +22,25 @@ notification_off = True
 def home():
     return render_template('index.html')
 
+
 @app.route('/get_th_data')
 def get_th_data():
     global temperature
     global humidity
     return jsonify({'temperature': temperature, 'humidity': humidity})
+
+@app.route('/get_images')
+def get_images():
+    images = []
+    directoryImages = os.listdir(imageDirectory)
+    directoryImages.reverse()
+    for filename in directoryImages:
+        if filename.endswith('.jpg') or filename.endswith('.png'):
+            with open(os.path.join(imageDirectory, filename), 'rb') as f:
+                data = f.read()
+                encoded_image = base64.b64encode(data).decode('utf-8')
+                images.append({'name': filename, 'data': encoded_image})
+    return jsonify({'images': images})
 
 @app.route('/th_data', methods=['POST'])
 def submit_th_data():
@@ -47,7 +64,7 @@ def submit_th_data():
 def intruder_detected():
     global image
     image = request.files['image']
-    imagePath = imageDirectory + image.filename
+    imagePath = imageDirectory + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '.jpg'
     image.save(imagePath)
     send_email_intruder_alert(imagePath)
     print(f'Image with name {image.filename}, was saved successfully in the image folder')
