@@ -12,7 +12,7 @@ MIN_TEMPERATURE = 10
 MAX_HUMIDITY = 60
 MIN_HUMIDITY = 30 
 
-imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
+imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
 temperature = ""
 humidity = ""
 image = None
@@ -85,4 +85,4 @@ def switch_notification():
     return jsonify({'message': message})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='192.168.139.248', port=5000, debug=False)
