@@ -12,8 +12,8 @@ MIN_TEMPERATURE = 10
 MAX_HUMIDITY = 60
 MIN_HUMIDITY = 30 
 
-imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
-#imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
+#imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
+imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
 temperature = ""
 humidity = ""
 image = None
@@ -22,7 +22,6 @@ security_is_enabled = True
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 @app.route('/get_th_data')
 def get_th_data():
@@ -42,6 +41,19 @@ def get_images():
                 encoded_image = base64.b64encode(data).decode('utf-8')
                 images.append({'name': filename, 'data': encoded_image})
     return jsonify({'images': images})
+
+@app.route('/enable_security')
+def enable_security():
+    global security_is_enabled
+    security_is_enabled = not security_is_enabled
+    message = "Notifications are now off" if security_is_enabled else "Notifications are now on" 
+    print(message)
+    return jsonify({'isEnabled': security_is_enabled})
+
+@app.route('/get_security_status')
+def get_security_status():
+    global security_is_enabled
+    return jsonify({'isEnabled': security_is_enabled})
 
 @app.route('/th_data', methods=['POST'])
 def submit_th_data():
@@ -73,24 +85,6 @@ def intruder_detected():
     print(f'Image with name {image.filename}, was saved successfully in the image folder')
     return jsonify({'message': 'Intrusion received successfully'})
 
-@app.route('/error', methods=['POST'])
-def submit_error():
-    error = request.get_json()["error"]
-    print(error)
-    return jsonify({'message': 'Error received successfully'})
-
-@app.route('/enable_security')
-def enable_security():
-    global security_is_enabled
-    security_is_enabled = not security_is_enabled
-    message = "Notifications are now off" if security_is_enabled else "Notifications are now on" 
-    print(message)
-    return jsonify({'isEnabled': security_is_enabled})
-
-@app.route('/get_security_status')
-def get_security_status():
-    global security_is_enabled
-    return jsonify({'isEnabled': security_is_enabled})
-
 if __name__ == '__main__':
-    app.run(host='192.168.139.248', port=5000, debug=False)
+    #app.run(host='192.168.139.248', port=5000, debug=False)
+    app.run()

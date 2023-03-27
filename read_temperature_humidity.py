@@ -2,15 +2,16 @@ import time
 import board
 import adafruit_dht
 import requests
+import sys
 
-th_sensor = adafruit_dht.DHT11(board.D17)
-address = "http://localhost:5000/"
+address = "http://192.168.139.248:5000/"
 errorMessage = ""
+th_sensor = adafruit_dht.DHT11(board.D17)
 
 def postError(errorMessage):
     print(errorMessage)
-    response = requests.post("address" + "error", json = {"error": errorMessage})
-    print(response.json())
+    #response = requests.post(address + "error", json = {"error": errorMessage})
+    #print(response.json())
 
 while True:
     try:
@@ -26,17 +27,13 @@ while True:
         else:
             errorMessage = "Error: Not able to get readings from sensor"
             postError(errorMessage)
-    
-    except RuntimeError as error:
-        errorMessage = error.args[0]
-        postError(errorMessage)
-        time.sleep(2.0)
-        continue
 
-    except Exception as error:
+    except (Exception, RuntimeError) as error:
         errorMessage = error.args[0]
         postError(errorMessage)
-        th_sensor.exit()
-        raise error
+        python = sys.executable
+        time.sleep(2.0)
+        #os.execl(python, python, *sys.argv)
+        continue
     
     time.sleep(10.0)

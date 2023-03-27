@@ -12,8 +12,23 @@
       <h1>Smart Attic Dashboard</h1>
       <div id="current-values">
         <h2>Current Values</h2>
-        <p>Temperature: <span id="temperature"></span> &deg;C</p>
-        <p>Humidity: <span id="humidity"></span> %</p>
+        <p style="color: #7ab8eb;">Humidity: <span id="humidity"></span> %</p>
+        <p style="color: #cf6c30;">Temperature: <span id="temperature"></span> &deg;C</p>
+        <div>
+          <p>
+            <div>
+              <div style="width: 33%; float: left">
+                <svg style="height: 20px;"></svg>
+              </div>
+              <div style="width: 33%; float: left">
+                <svg style="height: 20px;"></svg>
+              </div>
+            </div>
+            <div>
+              <div style="float: left"><svg id="vi1" height="500" width="900"></svg></div>
+            </div>
+          </p>
+        </div>
       </div>
       <div id="image-history">
         <h2>Intruder History</h2>
@@ -23,17 +38,6 @@
         <ul id="image-list">
           <!-- Images will be added here dynamically -->
         </ul>
-      </div>
-      <div>
-        <div style="width: 33%; float: left">
-          <svg style="height: 20px;"></svg>
-        </div>
-        <div style="width: 33%; float: left">
-          <svg style="height: 20px;"></svg>
-        </div>
-      </div>
-      <div>
-        <div style="width: 50%; float: left"><svg id="vi1" height="500" width="900"></svg></div>
       </div>
     </div>
     <script src="../static/app.js"></script>
