@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 filename = 'static/data.json'
-filepath = f'/home/rodrigo/Desktop/Smart-Attic/{filename}'
+filepath = 'replace with your desired image directory path' + f'/{filename}'
 
 def add_metric(temperature, humidity):
     try:
@@ -25,6 +25,6 @@ def add_metric(temperature, humidity):
 
     data.append(new_temperature)
     data.append(new_humidity)
-    
+
     with open(filepath, 'w') as file:
         json.dump(data, file, indent=2)
