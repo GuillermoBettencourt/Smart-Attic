@@ -33,18 +33,32 @@ fetch('/get_images')
   });
 
   const securityToggle = document.getElementById("security-toggle");
-  securityToggle.innerHTML = "Enabled";
-  securityToggle.style.backgroundColor = "#27ae60";
+  // fetch enable security and if it is enabled style it accordingly
+
+  fetch('/get_security_status')
+  .then(response => response.json())
+  .then(data => {
+    let securityIsEnabled = Boolean(data.isEnabled);
+    if (securityIsEnabled) {
+      securityToggle.innerHTML = "Security Enabled";
+      securityToggle.style.backgroundColor = "#27ae60";
+    } else {
+      securityToggle.innerHTML = "Security Disabled";
+      securityToggle.style.backgroundColor = "#e74c3c";
+    }
+    
+  });
+
   securityToggle.addEventListener("click", function() {
     fetch('/enable_security')
       .then(response => response.json())
       .then(data => {
         let securityIsEnabled = Boolean(data.isEnabled);
         if (securityIsEnabled) {
-          securityToggle.innerHTML = "Enabled";
+          securityToggle.innerHTML = "Security Enabled";
           securityToggle.style.backgroundColor = "#27ae60";
         } else {
-          securityToggle.innerHTML = "Disabled";
+          securityToggle.innerHTML = "Security Disabled";
           securityToggle.style.backgroundColor = "#e74c3c";
         }
         

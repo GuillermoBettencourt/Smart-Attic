@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 filename = 'static/data.json'
-filepath = f'/mnt/c/Users/guill/OneDrive/Escritorio/E.I/MEIC/S4/AI/Project/Smart-Attic/{filename}'
+filepath = f'/home/rodrigo/Desktop/Smart-Attic/{filename}'
 
 def add_metric(temperature, humidity):
     try:

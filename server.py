@@ -12,8 +12,8 @@ MIN_TEMPERATURE = 10
 MAX_HUMIDITY = 60
 MIN_HUMIDITY = 30 
 
-#imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
-imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
+imageDirectory = '/home/rodrigo/Desktop/Smart-Attic/'
+#imageDirectory = '/mnt/c/Users/guill/OneDrive/Escritorio/image/'
 temperature = ""
 humidity = ""
 image = None
@@ -32,7 +32,7 @@ def get_th_data():
 @app.route('/get_images')
 def get_images():
     images = []
-    directoryImages = os.listdir(imageDirectory)
+    directoryImages = sorted(os.listdir(imageDirectory))
     directoryImages.reverse()
     for filename in directoryImages:
         if filename.endswith('.jpg') or filename.endswith('.png'):
@@ -46,13 +46,14 @@ def get_images():
 def enable_security():
     global security_is_enabled
     security_is_enabled = not security_is_enabled
-    message = "Notifications are now off" if security_is_enabled else "Notifications are now on" 
+    message = "Notifications are now on" if security_is_enabled else "Notifications are now off" 
     print(message)
     return jsonify({'isEnabled': security_is_enabled})
 
 @app.route('/get_security_status')
 def get_security_status():
     global security_is_enabled
+    message = "Security is enabled" if security_is_enabled else "Security is disabled"
     return jsonify({'isEnabled': security_is_enabled})
 
 @app.route('/th_data', methods=['POST'])
@@ -86,5 +87,5 @@ def intruder_detected():
     return jsonify({'message': 'Intrusion received successfully'})
 
 if __name__ == '__main__':
-    #app.run(host='192.168.139.248', port=5000, debug=False)
-    app.run()
+    app.run(host='192.168.139.248', port=5000, debug=False)
+    #app.run()
