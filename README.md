@@ -33,7 +33,7 @@ imageDirectory = 'replace with your desired image directory path'
 
 ```Python
 # temperature_humidity_to_json.py file
-filepath = 'replace with your desired image directory path' + f'/{filename}'
+filepath = 'replace with the path pointing to your static/data.json directory' + f'/{filename}'
 ```
 
 Run the server.py file with:

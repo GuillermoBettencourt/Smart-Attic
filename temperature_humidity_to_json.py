@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 filename = 'static/data.json'
-filepath = 'replace with your desired image directory path' + f'/{filename}'
+filepath = 'replace with the path pointing to your static/data.json directory' + f'/{filename}'
 
 def add_metric(temperature, humidity):
     try:
